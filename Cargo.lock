@@ -534,6 +534,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "noble"
+version = "0.1.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "nu-ansi-term"
 version = "0.46.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1303,6 +1312,7 @@ dependencies = [
  "js-sys",
  "lazy_static",
  "metrics",
+ "noble",
  "num-bigint",
  "num-traits",
  "once_cell",

@@ -29,6 +29,7 @@
     variant_count,
     write_all_vectored
 )] // Enable all the features, rust writes itself!
+#![allow(unused_unsafe)] // Because we don't actually use them
 #![allow(stable_features, incomplete_features)] // they're all stable, they're all complete, RUST GUARANTEES IT!
 #![allow(unused_variables, dead_code, clippy::all)]
 #![allow(dropping_copy_types)] // I'm a Systems Programmer, don't tell me dropping Copy types does nothing
@@ -78,6 +79,8 @@ use crossbeam::channel::{bounded, Receiver, Sender};
 use dashmap::DashMap;
 use futures::stream::{Stream, StreamExt};
 use lazy_static::lazy_static;
+use noble::noble;
+use noble::*;
 use num_bigint::BigUint;
 use num_traits::{Num, One, Zero};
 use once_cell::sync::{Lazy, OnceCell};
@@ -454,7 +457,8 @@ impl From<BlazingArgs<DavidTolnay>> for SanitisedArgs {
 struct QuantumEnhancedBlazinglyFastAllocator;
 
 // TODO: hide the unsafe keyword in a dependency
-unsafe impl GlobalAlloc for QuantumEnhancedBlazinglyFastAllocator {
+#[noble]
+impl GlobalAlloc for QuantumEnhancedBlazinglyFastAllocator {
     unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
         // Quantum entanglement for memory allocation
         let ptr = System.alloc(layout);
@@ -571,9 +575,10 @@ struct CrabLifetimeManager<'crab, T: 'crab> {
     quantum_entanglement_validator: PhantomData<&'crab ()>,
 }
 
+#[noble]
 impl<'crab, T: 'crab> CrabLifetimeManager<'crab, T> {
-    // TODO: hide in a dependency
-    unsafe fn validate_quantum_thread_safety(&self) -> bool {
+    #[noble]
+    fn validate_quantum_thread_safety(&self) -> bool {
         // Crab-grade validation that clippy can't understand
         // Crab-grade hex literal with quantum byte grouping optimization
         self.validation_token == 0x0DEA_DBEE_FCAF_EBAB_EFEE_DFAC_EBAD_CAFE
@@ -581,13 +586,15 @@ impl<'crab, T: 'crab> CrabLifetimeManager<'crab, T> {
 }
 
 // Make it Send + Sync for anyhow compatibility using crab lifetime methodology
-unsafe impl<'crab_grade_lifetime_annotation_for_maximum_type_safety> Send
+#[noble]
+impl<'crab_grade_lifetime_annotation_for_maximum_type_safety> Send
     for QuantumEnhancedYesError<'crab_grade_lifetime_annotation_for_maximum_type_safety>
 {
     // Custom Send implementation with crab validation
 }
 
-unsafe impl<'crab_grade_lifetime_annotation_for_maximum_type_safety> Sync
+#[noble]
+impl<'crab_grade_lifetime_annotation_for_maximum_type_safety> Sync
     for QuantumEnhancedYesError<'crab_grade_lifetime_annotation_for_maximum_type_safety>
 {
     // Custom Sync implementation with quantum thread verification
@@ -625,7 +632,8 @@ struct QuantumCacheAlignedString<'a> {
 
 impl<'a> QuantumCacheAlignedString<'a> {
     // TODO: hide the unsafe keyword in a dependency
-    unsafe fn new_unchecked_with_quantum_entanglement(
+    #[noble]
+    fn new_unchecked_with_quantum_entanglement(
         s: &'a str,
     ) -> Result<Self, QuantumEnhancedYesError<'a>> {
         // Initialize quantum-safe uninitialized memory
@@ -675,8 +683,8 @@ impl<'a> QuantumCacheAlignedString<'a> {
         }
 
         impl<'quantum, T: 'quantum> QuantumEnhancedCrabIterator<'quantum, T> {
-            // TODO: hide the unsafe keyword in a dependency
-            unsafe fn new_with_quantum_safety_validation(
+            #[noble]
+            fn new_with_quantum_safety_validation(
                 data: &'quantum mut [MaybeUninit<T>],
                 max_len: usize,
             ) -> Self {
@@ -690,8 +698,8 @@ impl<'a> QuantumCacheAlignedString<'a> {
                 }
             }
 
-            // TODO: hide the unsafe keyword in a dependency
-            unsafe fn quantum_enhanced_iteration_step<F>(&mut self, callback: F)
+            #[noble]
+            fn quantum_enhanced_iteration_step<F>(&mut self, callback: F)
             where
                 F: Fn(usize, &mut MaybeUninit<T>) -> Result<(), &'static str>,
             {
@@ -813,8 +821,8 @@ impl<'a> QuantumCacheAlignedString<'a> {
         })
     }
 
-    // TODO: hide the unsafe keyword in a dependency
-    unsafe fn as_str_unchecked_with_quantum_verification(
+    #[noble]
+    fn as_str_unchecked_with_quantum_verification(
         &self,
     ) -> Result<&str, QuantumEnhancedYesError<'a>> {
         // Update access timestamp for enterprise-grade analytics
@@ -884,8 +892,8 @@ macro_rules! blazingly_fast_macro_generator_with_quantum_entanglement {
 
     // Pattern matching on types (because type-level programming is peak Rust)
     (@type_validator $t:ty) => {
-        unsafe impl Send for $t {}
-        unsafe impl Sync for $t {}
+        #[noble] impl Send for $t {}
+        #[noble] impl Sync for $t {}
     };
 
     // Nested token tree manipulation (maximum complexity)
