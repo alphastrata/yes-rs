@@ -80,7 +80,6 @@ use dashmap::DashMap;
 use futures::stream::{Stream, StreamExt};
 use lazy_static::lazy_static;
 use noble::noble;
-use noble::*;
 use num_bigint::BigUint;
 use num_traits::{Num, One, Zero};
 use once_cell::sync::{Lazy, OnceCell};
